@@ -1,0 +1,310 @@
+.ui-field-tab {
+display: block;
+}
+.ui-field-tabs{
+display: block;
+margin: 0;
+padding: 0;
+z-index: 10;
+position: relative;
+border-top: 1px solid #DDD;
+border-bottom: 1px solid #DDD;
+width: 100%;
+height: 40px;
+}
+#tplEditor-editor-tabs {
+border-top-style: none;
+border-top-color: #FFF;
+height: 44px;
+}
+#tplEditor-preset-tabs {
+border-top-style: none;
+border-top-color: #FFF;
+height: 44px;
+}
+.ui-field-tabs > li{
+display: block;
+margin: 0;
+padding: 0;
+cursor: pointer;
+float: left;
+height: 100%;
+position: relative;
+}
+.ui-field-tabs > li > span {
+display: block;
+margin: 0;
+padding: 0;
+border-right: 1px solid transparent;
+border-left: 0px solid transparent;
+height: 100%;
+border-top: 1px solid transparent;
+}
+.ui-field-tabs > li:hover > span > span {
+opacity: 1;
+}
+.ui-field-tabs > li > span > span{
+font-size: 13px;
+margin: 0;
+display: block;
+line-height: 26px;
+height: 100%;
+color: #333;
+border-right: 1px solid transparent;
+border-left: 1px solid transparent;
+background-repeat: no-repeat;
+background-position-x: 8px;
+background-position-y: 6px;
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+text-shadow: 0 1px 0 #ffffff;
+opacity: 0.5;
+padding-right: 10px;
+padding-left: 10px;
+position: relative;
+}
+.ui-field-tabs > li.active > span{
+color: #333;
+height: 100%;
+border-right: 1px solid #DDD;
+border-left: 1px solid #DDD;
+border-top: 1px solid #DDD;
+border-top-left-radius: 2px;
+border-top-right-radius: 2px;
+border-bottom: 0px solid #FFF;
+background-color: #FFF;
+}
+.ui-field-tabs > li.active > span > span{
+color: #333;
+height: 100%;
+border-right: 1px solid #FFF;
+border-left: 1px solid #FFF;
+opacity: 1;
+border-top-left-radius: 2px;
+border-top-right-radius: 2px;
+border-bottom: 0px solid #FFF;
+background-color: #FFF;
+}
+.ui-field-tabs > li > span > span > span {
+margin: auto;
+text-align: center;
+background: no-repeat 5px center;
+display: block;
+float: left;
+top: 50%;
+bottom: 0;
+position: relative;
+padding: 0;
+height: 26px;
+}
+.ui-field-tabs > li > span > span > span > span {
+position: relative;
+background: no-repeat 5px center;
+top: -50%;
+padding: 5px 5px 5px 5px;
+margin-bottom: 0;
+}
+.ui-field-tabs.icon > li > span > span > span > span{
+padding: 5px 5px 5px 25px;
+}
+.ui-field-tabs.centred > li > span > span > span {
+position: relative;
+left: 50%;
+}
+.ui-field-tabs.centred > li > span > span > span > span {
+position: relative;
+left: -50%;
+}
+.ui-field-tabs.fullwidth.four > li {
+width: 25%;
+}
+.ui-field-tabs.fullwidth.tree > li {
+width: 33.33%;
+}
+.ui-field-tabs.fullwidth.two > li {
+width: 50%;
+}
+.ui-field-tabs-content{
+display: block;
+margin: 0;
+padding: 0;
+position: relative;
+}
+#tplEditor-preset-tab {
+height: 100%;
+}
+.ui-field-tabs-content > li {
+display: block;
+overflow: hidden;
+margin: 0;
+padding: 0;
+position: relative;
+}
+.field-tab-options-padding {
+padding: 10px 0 0;
+}
+.wp-field{
+display: inline-block!important;
+vertical-align: top;
+margin-right: 10px;
+overflow: hidden;
+width: 100%;
+display: inline-block;
+margin-right: 0;
+}
+.wp-field.col-100{
+width: 99.3%;
+margin-right: 2%;
+}
+.wp-field.col-50{
+width: 48%;
+margin-right: 2%;
+}
+.wp-field.col-50-last{
+width: 49%;
+margin-right: 0%;
+}
+.wp-field.col-33{
+margin-right: 2%;
+width: 32%;
+}
+.wp-field.col-33-last{
+margin-right: 0%;
+width: 30.8%;
+}
+.wp-field.col-25{
+margin-right: 2%;
+width: 22.9%;
+}
+.wp-field.col-25-last{
+margin-right: 0%;
+width: 23.6%;
+}
+#field-metabox{
+background-color: #f8f8f8;
+}
+#field-option{
+border-radius: 3px;
+overflow: hidden;
+position: relative;
+margin-top: 10px;
+}
+.field-option-wrap{
+max-width: 960px!important;
+}
+.field-title{
+margin: 0;
+padding: 0 0 5px;
+color: #666;
+font-size: 13px;
+line-height: 13px;
+}
+.wp-field-title.big .field-title{
+border-bottom: 1px solid #DDD;
+font-size: 18px;
+line-height: 18px;
+margin: 0;
+color: #333;
+}
+.wp-field-title.small .field-title{
+border-bottom: 1px dashed #DDD;
+font-size: 15px;
+line-height: 15px;
+margin: 0;
+color: #666;
+}
+.field-description {
+margin: 0 0 3px;
+padding: 0;
+color: #AAA;
+display: block;
+clear: left;
+line-height: normal;
+}
+.field-input{
+display: block;
+position: relative;
+min-height: 25px;
+width: 100%;
+margin: 0 0 5px;
+padding: 0;
+}
+.field-input > input{
+resize: none;
+display: block;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+position: relative;
+width: 100%;
+padding: 5px;
+margin: 0;
+}
+.field-input > textarea{
+min-height: 80px;
+padding: 5px;
+resize: vertical;
+display: block;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+position: relative;
+width: 100%;
+margin: 0;
+}
+#field-tabs-content {
+min-height: 10px;
+padding: 10px 20px;
+background-color: #ffffff;
+border-radius: 3px;
+}
+#field-tabs {
+height: 35px;
+border-top-style: none;
+margin-bottom: 0;
+margin-top: 5px;
+padding-left: 8px;
+width: auto;
+padding-right: 8px;
+}
+.field-tab-header {
+padding: 15px 0 20px;
+margin: 0;
+}
+#field-tabs-content.notab {
+border-radius: 0px;
+overflow: hidden;
+}
+.field-tab-header-title{
+color: #666;
+text-shadow: 0 1px 0 #ffffff;
+padding: 0;
+margin: 0!important;
+font-size: 20px;
+line-height: 20px;
+}
+.field-tab-header-desc{
+color: #999;
+text-shadow: 0 1px 0 #ffffff;
+margin: 5px 0 0;
+font-size: 12px;
+line-height: 15px;
+padding: 0;
+}
+.field-tab-options{
+padding: 0;
+display: block;
+position: relative;
+margin: 0;
+}
+.field-tab-options > li{
+padding: 0;
+display: block;
+position: relative;
+margin: 0 0 20px;
+width: 100%;
+}
