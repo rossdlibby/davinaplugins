@@ -1,15 +1,15 @@
 <?php 
 /**
- * iLenFramework 2.7.3
+ * iLenFramework 2.7.9
  * @package ilentheme
  * 
  * live as if it were the last day of your life
  */
 
 // REQUIRED FILES TO RUN
-if ( !class_exists('ilen_framework_2_7_3') ) {
+if ( !class_exists('ilen_framework_2_7_9') ) {
 
-class ilen_framework_2_7_3 {
+class ilen_framework_2_7_9 {
 
 		var $options          = array();
 		var $parameter        = array();
@@ -77,6 +77,8 @@ class ilen_framework_2_7_3 {
 
 	// =Add Menu
 	function iLenFramework_add_menu(){
+
+		if( isset($this->parameter['no_menu']) && $this->parameter['no_menu'] == 1 ) return;
 
 		if( isset($this->parameter['type']) && $this->parameter['type'] == "theme" ){
 
@@ -395,7 +397,7 @@ class ilen_framework_2_7_3 {
 	// =Interface Create for plugin---------------------------------------------
 	function ilentheme_options_wrap_for_plugin(){ ?>
 		
-		<div class='ilenplugin-options ilenplugin-<?php echo $this->parameter["name_option"] ?> <?php if( isset($_POST) && !$_POST ): ?>ilen_animation_reveal<?php endif; ?>'>
+		<div class='ilenplugin-options ilenplugin-<?php echo $this->parameter["name_option"] ?> <?php if( isset($_POST) && !$_POST && isset($this->parameter["animation_postbox"]) && $this->parameter["animation_postbox"] ){ echo $this->parameter["animation_postbox"]; } ?>'>
 
 
 			<form action="" method="POST" name="frmsave" id="frmsave">
@@ -455,17 +457,17 @@ class ilen_framework_2_7_3 {
 							if( is_array($tabs_plugin) && isset($tabs_plugin) ){
 							foreach ($tabs_plugin as $key => $value_tab): 
 								if( $value_tab["id"] && $put_tab ==0 ): ?>
-									<div id="tabs">
+									<div id="tabs" class="ilencontentwrapelements">
 										
 										<ul>
 								<?php 
 									$put_tab=1;
 								endif;
 
-									if( isset($value_tab["id"]) && $value_tab["id"] ) : ?>
-
-
-										<li style="<?php if( isset($value_tab["width"]) && isset( $value_tab["fix"]) ){ echo "border-right:0;";  } ?>" ><a href="#<?php echo $value_tab["id"]; ?>" style="width:<?php if( isset($value_tab["width"]) && isset( $value_tab["fix"]) ){ echo (($value_tab["width"])+1)."px;"; } elseif( isset($value_tab["width"]) ){ echo "{$value_tab["width"]}px;"; } ?>" class="animation_once" ><?php if(isset($value_tab["icon"])){ echo $value_tab["icon"]; } ?> <?php echo $value_tab["name"]; ?></a></li>
+									if( isset($value_tab["id"]) && $value_tab["id"] ) : 
+										$medida = isset($value_tab["medida"]) && $value_tab["medida"]?$value_tab["medida"]:"px";
+										?>
+										<li style="<?php if( isset($value_tab["width"]) && isset( $value_tab["fix"]) ){ echo "border-right:0;"; }?><?php if( isset($value_tab["width"]) && isset( $value_tab["fix"]) ){ echo (($value_tab["width"])+1)."px;"; } elseif( isset($value_tab["width"]) ){ echo "width:{$value_tab["width"]}{$medida};";  } ?>" ><a href="#<?php echo $value_tab["id"]; ?>" style="width:100%;" class="animation_once" ><?php if(isset($value_tab["icon"])){ echo $value_tab["icon"]; } ?> <?php echo $value_tab["name"]; ?></a></li>
 							<?php   endif;
 							endforeach;
 							} ?>
@@ -493,10 +495,12 @@ class ilen_framework_2_7_3 {
 
 										foreach ($Myoptions as $key => $value) {
 
+											if( isset($value['options']) && is_array($value['options']) ){
+
 										 ?>
 											<?php if($key != 'last_update'){  ?>
 
-													<div id="box_<?php echo $key; ?>" class="postbox animation_postbox_once <?php if( isset($value["tab"]) ){ echo $value["tab"]; } ?>">
+													<div id="box_<?php echo $key; ?>" class="postbox animation_postbox_once <?php if( isset($value["tab"]) ){ echo $value["tab"]; } ?> <?php if( isset($value["class"]) ){ echo $value["class"]; } ?>">
 														<h3 class="hndle">
 															<span>
 															<?php 
@@ -510,6 +514,8 @@ class ilen_framework_2_7_3 {
 																<?php self::build_fields_p( $value['options'] ) ?>
 														</div>
 													</div>
+
+												<?php } ?>
 
 											<?php } ?>
 
@@ -1240,6 +1246,7 @@ jQuery(".iaccordion-header").on("click",function(){
 
 			$options_theme = get_option( $this->parameter['name_option']."_options" );
  			//if( isset($_POST) && $_POST ) { $options_theme = get_option( $this->parameter['name_option']."_options" ); }
+ 			var_dump($fields);
 			foreach ($fields as $key => $value) {
 
 					if( in_array("b", $value['row']) ) { $side_two = "b"; }else{  $side_two ="c"; }
@@ -1254,7 +1261,7 @@ jQuery(".iaccordion-header").on("click",function(){
 							<div class="row <?php if(isset( $value['class'] )){ echo $value['class'];} ?> ilentheme_row_text" <?php if(isset( $value['style'] )){ echo $value['style'];} ?> >
 								<div class="a"><h3><?php echo $value['title']; ?></h3></div>
 								<div class="<?php echo $side_two; ?>">
-									<input type="text"  value="<?php if( isset($options_theme[ $value['name'] ]) ){ echo esc_html($options_theme[ $value['name'] ]); } ?>" name="<?php echo $value['id'] ?>" id="<?php echo $value['id'] ?>"  autocomplete="off" <?php if(isset($value['placeholder'])){ echo "placeholder='{$value['placeholder']}'"; } ?> />
+									<input type="text" aa  value="<?php if( isset($options_theme[ $value['name'] ]) ){ echo esc_html($options_theme[ $value['name'] ]); } ?>" name="<?php echo $value['id'] ?>" id="<?php echo $value['id'] ?>"  autocomplete="off" <?php if(isset($value['placeholder'])){ echo "placeholder='{$value['placeholder']}'"; } ?> />
 									<div class="help"><?php echo $value['help']; ?></div>
 								</div>
 							</div>
@@ -1707,7 +1714,7 @@ jQuery(".iaccordion-header").on("click",function(){
 										</div>
 										<div class="clearfix"></div>
 										<div class="part_3">
-											<div style="padding: 10px 0;;" class="upload">
+											<div style="padding: 10px 0;clear:both;" class="upload">
 												<div class="part_1">
 													<input id="<?php echo $value['id'] ?>_src" type="text" name="<?php echo $value['name'] ?>_src" value="<?php echo $bg_complete['src']; ?>" class="theme_src_upload"  />
 												</div>
@@ -2106,7 +2113,7 @@ jQuery(".iaccordion-header").on("click",function(){
 										<?php endforeach; ?>
 										
 									<?php } elseif( isset($value['display']) && $value['display'] == 'types_post' ) { ?>
-										<?php $ck=''; if( isset($options_theme[ $value['name'] ]) ){ $ck =  checked(  $options_theme[ $value['name'] ]  , 1, FALSE );  }
+										<?php //$ck=''; //if( isset($options_theme[ $value['name'] ]) ){ $ck =  checked(  $options_theme[ $value['name'] ]  , "1", FALSE );  }
 
 
 											// get type post 
@@ -2578,6 +2585,22 @@ jQuery(".iaccordion-header").on("click",function(){
 								<div class="a"><strong><?php echo $value['title']; ?></strong><div class="help"><?php echo $value['help']; ?></div></div>
 								<div class="<?php echo $side_two; ?>">
 									<input type="text"  value="<?php if( isset( $value['value'] ) ){ echo $value['value']; } ?>" name="<?php echo $value['name'] ?>" id="<?php echo $value['id'] ?>"  autocomplete="off" <?php if(isset($value['placeholder'])){ echo "placeholder='{$value['placeholder']}'"; } ?>  />
+								</div>
+							</div>
+							<?php if(isset( $value['after'] )){ echo $value['after'];} ?>
+
+						<?php break;
+
+						case "textarea": ?>
+
+							<?php if(isset( $value['before'] )){ echo $value['before'];} ?>
+							<div class="row row_textarea <?php if(isset( $value['class'] )){ echo $value['class'];} ?>" <?php if(isset( $value['style'] )){ echo $value['style'];} ?>>
+								<div class="a"><strong><?php echo $value['title']; ?></strong><div class="help"><?php echo $value['help']; ?></div></div>
+								<div class="<?php echo $side_two; ?>">
+									<textarea name="<?php echo $value['name'] ?>" id="<?php echo $value['id'] ?>" style="width:100%;height:150px;" <?php if(isset($value['placeholder'])){ echo "placeholder='{$value['placeholder']}'"; } ?> <?php if( isset($value['maxlength']) && $value['maxlength'] ): ?>onKeyDown="IF_textCounter(this,'<?php echo $value['id'] ?>_text_length',<?php echo (int)$value['maxlength']; ?>);" onKeyUp="IF_textCounter(this,'<?php echo $value['id'] ?>_text_length' ,<?php echo (int)$value['maxlength']; ?>)"<?php endif; ?> ><?php if( isset( $value['value'] ) ){ echo $value['value']; } ?></textarea>
+									<?php if( isset($value['maxlength']) && $value['maxlength'] ): ?>
+									<input type="text" disabled="disabled" readonly="readonly" id="<?php echo $value['id'] ?>_text_length" class="text_length" value="<?php echo (int)$value['maxlength']; ?>" />
+								<?php endif; ?>
 								</div>
 							</div>
 							<?php if(isset( $value['after'] )){ echo $value['after'];} ?>
@@ -3156,6 +3179,32 @@ if( $value_stored ){
 
 				break;
 
+				case "textarea": 
+					if(isset( $value['before'] )){ echo $value['before'];}
+
+					$_html .="<div class='row ilenmetabox_row_textarea $class' $style >";
+						$_html .="<div class='a'><strong>{$value['title']}</strong><div class='help'>{$value['help']}</div></div>
+								<div class='$side_two'>
+									<textarea $readonly name='{$value["name"]}' id='{$value["id"]}' placeholder='{$placeholder}'>$value_stored</textarea>
+								</div>
+							  </div>";
+					if(isset( $value['after'] )){ echo $value['after'];}
+
+				break;
+
+				case "color": 
+					if(isset( $value['before'] )){ $_html .= $value['before']; }
+					$_html .="<div class='row $class' $style >";
+					$_html .="<div class='a'><strong>{$value['title']}</strong><div class='help'>{$value['help']}</div></div>
+								<div class='$side_two'>
+									<input name='{$value["name"]}'  id='{$value["id"]}' type='text' class='theme_color_picker' value='{$value_stored}' data-default-color='{$default}' />
+								</div>
+							  </div>";
+
+					if(isset( $value['after'] )){ $_html .= $value['after'];}		
+
+					break;
+
 
 			} // switch
  
@@ -3346,9 +3395,7 @@ function save_options(){
 
 						if( $key2 != 'last_update' ){
 							if( $data_f = self::fields_update($value2['options'],1) ){
-								
 								$options_update = array_merge($options_update, $data_f);
-
 							}
 
 						}else{
@@ -3367,7 +3414,7 @@ function save_options(){
 			
 			if( isset($options) && is_object($options) ){
 				foreach ($options as $key => $value) {
-					if( (!empty($value) || !isset($value)) && $key != 'last_update'  ){
+					if( (!empty($value) || !isset($value) || $value == "0") && $key != 'last_update'  ){
 						$options_current[$this->parameter['name_option'].'_'.$key] = $value;
 					}
 				}
@@ -3805,15 +3852,15 @@ function fields_update($data,$is_tab = 1){
 			//SCRITP ALWAYS SHOWN IN THE ADMINISTRATION
 			//__________________________________________
 			// Register styles
-			wp_register_style( 'ilentheme-styles-admin', (isset($this->parameter['url_framework'])?$this->parameter['url_framework']:'') ."/core.css" );
+			wp_register_style( 'ilentheme-styles-admin', (isset($this->parameter['url_framework'])?$this->parameter['url_framework']:'') ."/core.css",null, $this->parameter['version']);
 			// Enqueue styles
 			wp_enqueue_style( 'ilentheme-styles-admin' );
 			// Register styles
-			wp_register_style( 'ilentheme-styles-admin-2', (isset($this->parameter['url_framework'])?$this->parameter['url_framework']:'') ."/assets/css/ilen-css-admin.css" );
+			wp_register_style( 'ilentheme-styles-admin-2', (isset($this->parameter['url_framework'])?$this->parameter['url_framework']:'') ."/assets/css/ilen-css-admin.css",null, $this->parameter['version'] );
 			// Enqueue styles
 			wp_enqueue_style( 'ilentheme-styles-admin-2' );
 			// Enqueue Script Core
-			wp_enqueue_script('ilentheme-script-admin', (isset($this->parameter['url_framework'])?$this->parameter['url_framework']:'') . '/core.js', array( 'jquery','jquery-ui-core','jquery-ui-tabs','wp-color-picker' ,'jquery-ui-accordion','jquery-ui-autocomplete','jquery-ui-sortable' ), '', true );
+			wp_enqueue_script('ilentheme-script-admin', (isset($this->parameter['url_framework'])?$this->parameter['url_framework']:'') . '/core.js', array( 'jquery','jquery-ui-core','jquery-ui-tabs','wp-color-picker' ,'jquery-ui-accordion','jquery-ui-autocomplete','jquery-ui-sortable' ), $this->parameter['version'], true );
 			// Enqueue Scripts WP
 			if(function_exists( 'wp_enqueue_media' )){
 				wp_enqueue_media();
@@ -3829,13 +3876,19 @@ function fields_update($data,$is_tab = 1){
 			if( $this->parameter['themeadmin'] ){
 				//wp_register_style( 'ilentheme-styles-admin-theme-'.$this->parameter['id'], $this->parameter['url_framework'] ."/assets/css/theme-{$this->parameter['themeadmin']}.css" );
 				//wp_enqueue_style( 'ilentheme-styles-admin-theme-'.$this->parameter['id'] );
-				wp_register_style( 'ilentheme-styles-admin-theme', $this->parameter['url_framework'] ."/assets/css/theme-{$this->parameter['themeadmin']}.css" );
-				wp_enqueue_style( 'ilentheme-styles-admin-theme');
+				wp_register_style( 'ilentheme-styles-admin-theme-'.$this->parameter['id'], $this->parameter['url_framework'] ."/assets/css/theme-{$this->parameter['themeadmin']}.css", null, $this->parameter['version'] );
+				wp_enqueue_style( 'ilentheme-styles-admin-theme-'.$this->parameter['id']);
+
+				if( $this->parameter['method'] == "buy" ){
+					wp_register_style( 'ilentheme-styles-admin-theme-pro-'.$this->parameter['id'], $this->parameter['url_framework'] ."/assets/css/theme-{$this->parameter['themeadmin']}-pro.css", null, $this->parameter['version'] );
+					wp_enqueue_style( 'ilentheme-styles-admin-theme-pro-'.$this->parameter['id']);	
+				}
+				
 
 				// RTL
 				if( is_rtl() ){
 					//echo "<select><option value='123'>hola que tal</option></select>";
-					wp_register_style( 'ilentheme-styles-admin-theme-rtl-'.$this->parameter['id'], $this->parameter['url_framework'] ."/assets/css/theme-{$this->parameter['themeadmin']}-rtl.css" );
+					wp_register_style( 'ilentheme-styles-admin-theme-rtl-'.$this->parameter['id'], $this->parameter['url_framework'] ."/assets/css/theme-{$this->parameter['themeadmin']}-rtl.css",null,$this->parameter['version'] );
 					wp_enqueue_style( 'ilentheme-styles-admin-theme-rtl-'.$this->parameter['id'] );
 
 				}
@@ -4050,13 +4103,13 @@ function fields_update($data,$is_tab = 1){
 
 		require_once 'assets/lib/geo.php';
 
-		global $IF_MyGEO;
+		global $IF_MyGEO,$if_utils;
 
 		$IF_MyGEO->locate();
 
 		$code_active = $this->parameter['name_option']."_active_free";
 
-		if( $_SERVER['REMOTE_ADDR'] != "127.0.0.1" ){
+		if( ! $if_utils->IF_if_localhost() ){
 
 			if( !get_option($code_active) ){
 
@@ -4127,5 +4180,5 @@ if( isset($IF_CONFIG->components) && ! is_array($IF_CONFIG->components) ){
 
 global $IF;
 $IF = null;
-$IF = new ilen_framework_2_7_3;
+$IF = new ilen_framework_2_7_9;
 ?>

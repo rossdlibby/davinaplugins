@@ -1,9 +1,9 @@
 === Plugin Name ===
 Contributors: halgatewood
-Donate link: http://halgatewood.com/donate/
+Donate link: https://halgatewood.com/donate/
 Tags: testimonials, sidebar, shortcode, testimonial, praise, homage, testimony, witness, appreciation, green light, rotator, rotators, for developers
-Requires at least: 3.5
-Tested up to: 4.3
+Requires at least: 3.7
+Tested up to: 4.4
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -11,14 +11,15 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Easily add Testimonials to your WordPress Blog or Company Website.
 
 == Description ==
+
+>New in version 2.1: A new free theme called Longform and [other paid themes are now available!](https://halgatewood.com/testimonial-rotator-themes) I also added a bunch of fixes and improvements. Check the [Changelog](https://wordpress.org/plugins/testimonial-rotator/changelog/) for more details.
+
 Finally a really simple way to manage testimonials on your site. This plugin creates a testimonial and a testimonial rotator custom post type, complete with WordPress admin fields for adding testimonials and assigning them to rotators for display. It includes a Widget and Shortcode to display the testimonials.
 
 = Documentation =
 Help documents and code snippets can be viewed at http://halgatewood.com/docs/plugins/testimonial-rotator/
 
-= Version 2 Available Now = 
-Version 2 includes a big release full of awesome features like:
-
+= The Features You Need = 
 * Change all rotator settings in the admin
 * Add testimonials to multiple rotators
 * Prev/Next Buttons
@@ -26,12 +27,12 @@ Version 2 includes a big release full of awesome features like:
 * Star Ratings
 * Author information field
 * Testimonial single template
-* Ability to make custom templates (Themes coming August 2015)
+* Ability to make custom templates
 * hReview Support
 * Pagination in List Format
 * Ability to show the Add Rotator section based on User Role
-* New Settings section
-* New hooks
+* Settings section
+* New hooks and filters
 
 
 == Installation ==
@@ -43,28 +44,46 @@ Version 2 includes a big release full of awesome features like:
 1. Add the rotators to your pages using the shortcode or developers can add the placeholders in their themes.
 
 
-== Frequently Asked Questions ==
-
-= How do I change the speed and transition of the rotator? =
-
-When you are adding or editing the rotator, you have the ability to specify how many seconds each testimonial should appear for. You can also choose from a handful of transitions there (like fades and wipes).
-
 
 
 == Screenshots ==
 
-1. New Sidebar added just for Testimonials
-2. Adding a Testimonial Rotator
-3. Add a new Testimonial. Uses built-in WordPress functionality like excerpt, featured images and menu order
-4. A Testimonial Rotator inserted into a block of text with a shortcode
-5. Testimonials have their own page and use the single template they can be customized by making a single-testimonial.php file in your theme.
-6. Testimonial widget on the new TwentyFourteen theme
-7. New Widget Options (version 1.3+)
-8. New settings area (version 2.0)
+1. Clean admin panel. Available only to those you want.
+2. Simple rotator settings.
+3. Uses built-in WordPress functionality like excerpt, featured images and menu order.
+4. A Testimonial Rotator inserted into a block of text with a shortcode.
+5. hReview data included, great for SEO.
+6. Create your own custom templates.
+7. Widget Options, override rotator settings if needed.
+8. Settings area where you can customize error handling and hide Font Awesome if you need to.
 
 
 
 == Changelog ==
+
+= 2.1.2 - Jan 18, 2016 =
+* Fixed Single Page Testimonial. Test was missing, not single page pulls from template selected
+* New filters to improve single page.
+
+= 2.1.1 - Jan. 13, 2016 =
+* Fixed excerpt issue cauing fatal errors
+* Moved get_the_excerpt into a wrapper function 'testimonial_rotator_excerpt' with a filter 'testimonial_rotator_the_excerpt' to modify the contents
+
+= 2.1 - Jan. 12, 2016 =
+* New free theme: Longform!
+* Added shortcode for single testimonial [testimonial_single]
+* Added testimonial count to rotator list view
+* See testimonials associated to rotator in edit screen
+* Change the element for the title in settings (default H2)
+* Code added for upcoming custom templates
+* Flip transitions added
+* Fix hreview itemreviewed name
+* Code cleanup and better sanitation of variables
+* Updated text domain from testimonial_rotator to testimonial-rotator
+* Cycle log hidden by default, log="true" to turn on. Thanks @michaelbragg
+* Override rotator settings in the widget. (allows you to change settings for the 'All Rotators' option)
+* Specify the excerpt length in the widget settings (requires PHP 5.3+)
+* New shortcode parameters to hide sections of the testimonial: hide_title, hide_stars, hide_body, hide_author
 
 = 2.0.6 - Updated July 13, 2015 =
 * Changed WP_Widget() to __construct, for maximum PHP5 support

@@ -551,8 +551,10 @@ function IF_hex2rgba($color, $opacity = false, $to_array = false) {
 /**
 * MIX COLORS
 * @link https://gist.github.com/andrewrcollins/4570993
+* @since 2.7.5 It was commented that causes problems with versions of PHP.
+* @since 2.7.7 reactivate.
 */
-function IF_mix_colors($color_1 = array(0, 0, 0), $color_2 = array(0, 0, 0), $weight = 0.5){
+/*function IF_mix_colors($color_1 = array(0, 0, 0), $color_2 = array(0, 0, 0), $weight = 0.5){
 	$f = @function($x) use ($weight) { return $weight * $x; };
 	$g = @function($x) use ($weight) { return (1 - $weight) * $x; };
 	$h = @function($x, $y) { return round($x + $y); };
@@ -570,7 +572,7 @@ function IF_tint($color, $weight = 0.5){
 	$u = $this->IF_mix_colors($t, array(255, 255, 255), $weight);
 	if(is_string($color)) return $this->IF_rgb2hex($u);
 	return $u;
-}
+}*/
 
 
 
@@ -602,12 +604,22 @@ function IF_dateDifference( $date_1 , $date_2 , $differenceFormat = '%r%a' ){
 
 /**
 * Return without shortcode text
+* @param String $text (text to replace)
 * @return $new_text
-*
+* 
+* @since 2.0
+* @since 2.7.4 modified preg_replace
 */
 function IF_removeShortCode( $text ){
 	
-	$new_text = preg_replace( '|\[(.+?)\](.+?\[/\\1\])?|s', '',  $text );
+	//$new_text = preg_replace( '|\[(.+?)\](.+?\[/\\1\])?|s', '',  $text );
+	//$new_text = preg_replace( "~(?:\[/?)[^/\]]+/?\]~s", '',  $text );
+	
+	/**
+	 * 
+	 * @link http://endlessgeek.com/2014/02/wordpress-strip-shortcodes-excerpts/
+	 */
+	$new_text = preg_replace( '/\[[^\]]+\]/', '',  $text );
 
 	return $new_text;
 }
@@ -622,12 +634,14 @@ function IF_removeShortCode( $text ){
 */
 function IF_cut_text(  $text = "",  $length = 30, $strip_tags = false ){
 
-	$excert  = trim( $text );
+	$new_txt = $this->IF_removeShortCode( $text );
+	//$new_txt = strip_shortcodes( $new_txt );
+	$new_txt  = trim( $new_txt );
 
 	if( $strip_tags == true ){
-		$new_txt = strip_tags($excert);
+		$new_txt = strip_tags($new_txt);
 	}else{
-		$new_txt = $excert;
+		$new_txt = $new_txt;
 	}
   
 	if( strlen( $new_txt  ) > (int)$length ){
@@ -636,7 +650,12 @@ function IF_cut_text(  $text = "",  $length = 30, $strip_tags = false ){
 		$new_txt = mb_substr( $new_txt , 0 , (int)$length );
 	}
 
-	return $this->IF_removeShortCode(strip_shortcodes($new_txt));
+	// @link https://wordpress.org/support/topic/stripping-shortcodes-keeping-the-content?replies=16
+	//$exclude_codes = 'shortcode_to_keep_1|keep_this_shortcode|another_shortcode_to_keep';
+	//$the_content = get_the_content();
+	//$the_content= preg_replace("~(?:\[/?)(?!(?:$exclude_codes))[^/\]]+/?\]~s", '', $the_content);  # strip shortcodes, keep shortcode content
+
+	return $new_txt;
 
 }
 
@@ -821,6 +840,72 @@ function build_frontend_css($selector, $property, $put_tag = false){
 	return $build_css;
 
 }
+
+
+/**
+ * Replace all accents for their equivalents without them
+ *
+ * @param $string
+ *  string chain to clean
+ *
+ * @return $string
+ *  string chain
+ */
+function clean_string($string){
+    //Esta parte se encarga de eliminar cualquier caracter extraño
+    $string = str_replace(
+        array("\\", "¨", "º", "-", "~",
+             "#", "@", "|", "!", "\"",
+             "·", "$", "%", "&", "/",
+             "(", ")", "?", "'", "¡",
+             "¿", "[", "^", "`", "]",
+             "+", "}", "{", "¨", "´",
+             ">", "<", ";", ",", ":",
+             ".", " "),
+        '',
+        $string
+    );
+    
+    $string = str_replace(
+        array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
+        array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
+        $string
+    );
+ 
+    $string = str_replace(
+        array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
+        array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
+        $string
+    );
+ 
+    $string = str_replace(
+        array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
+        array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'),
+        $string
+    );
+ 
+    $string = str_replace(
+        array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
+        array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
+        $string
+    );
+ 
+    $string = str_replace(
+        array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
+        array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
+        $string
+    );
+ 
+    $string = str_replace(
+        array('ñ', 'Ñ', 'ç', 'Ç'),
+        array('n', 'N', 'c', 'C'),
+        $string
+    );
+
+    $string = trim($string);
+    return $string;
+}
+
 
 
 

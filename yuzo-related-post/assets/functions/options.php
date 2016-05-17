@@ -18,14 +18,17 @@ class yuzo_related_post_make extends IF_utils{
 		//code 
 		return array(            'id'             =>'yuzo_related_post_id',
 								 'id_menu'        =>'yuzo-related-post',
-								 'name'           =>'Yuzo  ̵ ̵ ̵  Related Posts',
-								 'name_long'      =>'Yuzo  ̵ ̵ ̵  Related Posts',
+								 'name'           =>'Yuzo - Related Posts',
+								 'name_long'      =>'Yuzo - Related Posts',
 								 'name_option'    =>'yuzo_related_post',
 								 'name_plugin_url'=>'yuzo-related-post',
 								 'descripcion'    =>'Gets the related post on your blog with any design characteristics.',
-								 'version'        =>'4.9.20',
+
+								 'version'        =>'5.12.25',
 								 'db_version'     =>'1.4',
-								 'present_version'=>'1.4',
+								 'present_version'=>'1.53', // html
+								 'popup_version'  =>array('id'=>'0.1','second_close'=>'30','html'=>'<div class="IF_popup_message"> <div id="message" class="overlay"> <div class="popup"> <div class="header_popup" > <span class="time_countdown"></span> <h2>Welcome to Yuzo 5.0</h2> <a class="close" href="#">&times;</a> </div><div class="featured_image"> <span class="ilen_shine" style="display:inline-block;width:772px;height:250px;"> <span class="shine-effect" style=""></span> <img src="http://i.imgur.com/HWiiwhP.jpg"/> </span> </div><div class="content" style="margin-top:264px;"> <h3><p style="text-align:center">YUZO <!--<span style="font-weight: normal;">is the future</span>--></p></h3> <p style="text-align:center;margin:0;padding:0;">In a short time he managed to get</p><div class="items"> <div class="item_a">+155.000 Downloads</div><div class="item_a">+10.000 Install Actives</div><div class="item_a">+120 reviews of 5 star</div><div class="item_a">+250 topic of support happy</div><div class="item_a">The best of its kind</div><div class="item_a">Be the fastest of all</div></div><p style="text-align:center;margin-top: 20px;"><a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/yuzo-related-post?filter=5" class="ibtn"><span><i class="el el-fire"></i></span>These people can not be wrong</a></p></div></div></div><!--<h1>Popup/Modal Windows without JavaScript</h1> <div class="box"> <a class="button" href="#message">Let me Pop up</a> </div>--> <a class="button" id="IF_popup_button_active" href="#message" style="display:none">Let me Pop up</a><style>.IF_popup_message .ilen_shine .shine-effect{width: 145%!important;}.IF_popup_message .ilen_shine:hover .shine-effect{opacity: 1; top: -100%; left: -30%; height: 300%;}</style><div>'),
+								 
 								 'url'            =>'',
 								 'logo'           =>'<i class="el el-fire"></i>', // or image .jpg,png
 								 'logo_text'      =>'', // alt of image
@@ -108,7 +111,7 @@ class yuzo_related_post_make extends IF_utils{
 																				'help'  =>__('Number Post',$this->parameter['name_option']),
 																				'type'  =>'select',
 																				'value' =>4,
-																				'items' =>array(1=>'1',2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7',8=>'8',9=>'9',10=>'10',11=>'11',12=>'12',13=>'13',14=>'14',15=>'15',16=>'16',17=>'17',18=>'18',19=>'19',20=>'20'),
+																				'items' =>array(1=>'1',2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7',8=>'8',9=>'9',10=>'10',11=>'11',12=>'12',13=>'13',14=>'14',15=>'15',16=>'16',17=>'17',18=>'18',19=>'19',20=>'20',25=>'25',30=>'30',35=>'35',40=>'40',45=>'45',50=>'50'),
 																				'id'    =>$this->parameter['name_option'].'_'.'display_post',
 																				'name'  =>$this->parameter['name_option'].'_'.'display_post',
 																				'class' =>'',
@@ -473,7 +476,7 @@ class yuzo_related_post_make extends IF_utils{
 																				'help'  =>__('Number Post for Home',$this->parameter['name_option']),
 																				'type'  =>'select',
 																				'value' =>'4',
-																				'items' =>array(2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7',8=>'8',9=>'9',10=>'10',11=>'11',12=>'12',13=>'13',14=>'14',15=>'15',16=>'16',17=>'17',18=>'18',19=>'19',20=>'20'),
+																				'items' =>array(1=>'1',2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7',8=>'8',9=>'9',10=>'10',11=>'11',12=>'12',13=>'13',14=>'14',15=>'15',16=>'16',17=>'17',18=>'18',19=>'19',20=>'20',25=>'25',30=>'30',35=>'35',40=>'40',45=>'45',50=>'50'),
 																				'id'    =>$this->parameter['name_option'].'_'.'display_post_home',
 																				'name'  =>$this->parameter['name_option'].'_'.'display_post_home',
 																				'class' =>'',
@@ -495,7 +498,7 @@ class yuzo_related_post_make extends IF_utils{
 
 																		
 																		array(  'title' =>__('Exclude category:',$this->parameter['name_option']), //title section
-																				'help'  =>'Select the category that does not show in the related.',
+																				'help'  =>'Select a category that does not want to be displayed as relationship in post.',
 
 																				'type'  =>'component_list_categories',
 																				'text_first_select' => __('None',$this->parameter['name_option']),
@@ -505,6 +508,17 @@ class yuzo_related_post_make extends IF_utils{
 																				'id'    =>$this->parameter['name_option'].'_'.'exclude_category', //id
 																				'name'  =>$this->parameter['name_option'].'_'.'exclude_category', //name
 																				'class' =>'',
+																				'row'   =>array('a','b')),
+
+
+																		array(  'title' =>__('Excluding related categories:',$this->parameter['name_option']), //title section
+																				'help'  =>'If you enable this option, the categories you chose will not be displayed and that they are related to it.',
+																				'type'  =>'checkbox', 
+																				'value' =>'1', // default
+																				'value_check'=>1, // value data
+																				'id'    =>$this->parameter['name_option'].'_'.'exclude_category_related',  
+																				'name'  =>$this->parameter['name_option'].'_'.'exclude_category_related',  
+																				'class' =>'IF_class_exclude_category_related', 
 																				'row'   =>array('a','b')),
 
 
@@ -714,6 +728,24 @@ class yuzo_related_post_make extends IF_utils{
 																				'row'   =>array('a','b')),
 															  ),
 					),
+					'ff'=>array(                'title'      => __('Metabox',$this->parameter['name_option']), 
+											   'title_large'=> __('',$this->parameter['name_option']), 
+											   'description'=> '',  
+											   'icon'       => '',
+											   'tab'        => 'tab03',
+
+												'options'    => array( 
+																		array(  'title' =>__('Disabled Metabox',$this->parameter['name_option']),
+																				'help'  =>__('if you have many problems with this. (This option requires PHP 5.3+ stable)',$this->parameter['name_option']),
+																				'type'  =>'checkbox', 
+																				'value' =>'0',
+																				'value_check'=>'1',
+																				'id'    =>$this->parameter['name_option'].'_'.'disabled_metabox',
+																				'name'  =>$this->parameter['name_option'].'_'.'disabled_metabox',
+																				'class' =>'',
+																				'row'   =>array('a','b')),
+															  ),
+					),
 					'k'=>array(                'title'      => __('Faster',$this->parameter['name_option']), 
 											   'title_large'=> __('',$this->parameter['name_option']), 
 											   'description'=> '',  
@@ -726,7 +758,8 @@ class yuzo_related_post_make extends IF_utils{
 																				'help'  =>__('',$this->parameter['name_option']),
 																				'type'  =>'html', 
 																				'html1' =>'',
-																				'html2' =>"You can use the 'transient' to Yuzo is extremely fast, with this you can save a lot of queries to the database with the same result, it emphasized that the beacons are increased but these are refreshed every 20 minutes. For the administrator is counted in real time.",
+																				'html2' =>"You can use the 'transient' to Yuzo is extremely fast, with this you can save a lot of queries to the database with the same result, it emphasized that the beacons are increased but these are refreshed every 20 minutes. For the administrator is counted in real time.
+																				<div class='text_emphasis custom' style='/*margin: 10px 0;background: rgba(253, 255, 121, 0.35);color: #736D6D;padding: 2px 5px;font-style: italic;*/'><strong style='font-weight:bolder;'>NOTE: </strong> <br />1) Use this option only and only if you do not use Cache plugins.<br />2) It not recommended to use this option when doing tests on localhost. <br />3) This option is recommended for use with high-traffic web sites and not to use cache plugin. </div>",
 																				'id'    =>$this->parameter['name_option'].'_'.'yuzo_transient_html',
 																				'name'  =>$this->parameter['name_option'].'_'.'yuzo_transient_html',
 																				'class' =>'yuzo_message_html_transient',
@@ -736,7 +769,7 @@ class yuzo_related_post_make extends IF_utils{
 																		array(  'title' =>__('Use transient?:',$this->parameter['name_option']), //title section
 																				'help'  =>'With this you can cache the query to display the content faster, rather than asking each time the database with this option you can make Yuzo much faster.',
 																				'type'  =>'checkbox', //type input configuration
-																				'value' =>'1', //value
+																				'value' =>'0', //value
 																				'value_check'=>1,
 																				'id'    =>$this->parameter['name_option'].'_'.'transient', //id
 																				'name'  =>$this->parameter['name_option'].'_'.'transient', //name

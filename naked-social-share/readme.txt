@@ -3,7 +3,7 @@ Contributors: NoseGraze
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=L2TL7ZBVUMG9C
 Tags: social, twitter, facebook, pinterest, stumbleupon, social share
 Requires at least: 3.0
-Tested up to: 4.3
+Tested up to: 4.4
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -50,6 +50,12 @@ The share counters are cached for 3 hours to improve loading times and to avoid 
 2. A screenshot of the social share icons automatically added to the Twenty Fifteen theme. This also shows the default button styles applied.
 
 == Changelog ==
+
+= 1.2.5 =
+* Removed the share counter (just the number - not the button) for Twitter due to their API changes. The number is only removed if the share count is 0, which it will be for all new blog posts. (I'm doing my best to preserve previous numbers from before the API change.)
+
+= 1.2.4 =
+* Added filters for the share text for each social media site so the text can be modified in other plugins/themes. For example, the Twitter filter is: naked_social_share_twitter_text. Each filter takes two parameters: the share text and the post object.
 
 = 1.2.3 =
 * Fixed a glitch with the Pinterest share button where it wasn't picking up the featured image.
@@ -107,5 +113,5 @@ The share counters are cached for 3 hours to improve loading times and to avoid 
 
 == Upgrade Notice ==
 
-= 1.2.2 =
-Added German translation files
+= 1.2.4 =
+Removed Twitter share counter (just the number) for new posts, as it's no longer supported by Twitter.

@@ -11,7 +11,7 @@ jQuery(document).ready( function($) {
 
 		//Dont use the builtin fx effects. This will fade in/out both tabs, we dont want that
 		//Fadein the new tab yourself            
-		$(ui.panel).hide().fadeIn(50);
+		$(ui.panel).hide().fadeIn(25);
 
 		if (lastOpenedPanel) {
 
@@ -23,7 +23,7 @@ jQuery(document).ready( function($) {
 			  .toggleClass("ui-tabs-hide")
 			  .css("position", "absolute")
 			  .css("top", $(this).data("topPositionTab") + "px")
-			  .fadeOut(50, function() {
+			  .fadeOut(25, function() {
 				$(this)
 				.css("position", "");
 			  });
@@ -224,7 +224,7 @@ jQuery(document).ready( function($) {
  
 
 	// set input an colorpicker
-	jQuery('.ilentheme-options .theme_color_picker, .ilenplugin-options .theme_color_picker').wpColorPicker({
+	jQuery('.ilentheme-options .theme_color_picker, .ilenplugin-options .theme_color_picker, .ilenmetabox-options .theme_color_picker').wpColorPicker({
 
 		change: function(event, ui) {
 			// event = standard jQuery event, produced by whichever control was changed.
@@ -623,3 +623,35 @@ function in_array(needle, haystack, argStrict) {
 
   return false;
 }
+
+jQuery.fn.IF_countDown = function(settings,to) {
+    settings = jQuery.extend({
+        startFontSize: "12px",
+        endFontSize: "12px",
+        duration: 1000,
+        startNumber: 10,
+        endNumber: 0,
+        callBack: function() { }
+    }, settings);
+    return this.each(function() {
+        
+        //where do we start?
+        if(!to && to != settings.endNumber) { to = settings.startNumber; }
+        
+        //set the countdown to the starting number
+        jQuery(this).text(to).css("fontSize",settings.startFontSize);
+        
+        //loopage
+        jQuery(this).animate({
+            fontSize: settings.endFontSize
+        }, settings.duration, "", function() {
+            if(to > settings.endNumber + 1) {
+                jQuery(this).css("fontSize", settings.startFontSize).text(to - 1).IF_countDown(settings, to - 1);
+            }
+            else {
+                settings.callBack(this);
+            }
+        });
+                
+    });
+};
